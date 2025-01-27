@@ -1,0 +1,47 @@
+{
+    "name": "DAMFF_1000songs",
+    "n_gpu": 1,
+    "arch": {
+        "type": "DAMFF",
+        "args": {}
+    },
+    "data_loader": {
+        "type": "MusicDataLoader",
+        "args":{
+            "dataset_name": "1000songs",
+            "batch_size": 32,
+            "shuffle": true,
+            "validation_split": 0.1,
+            "num_workers": 2
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.0003,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": "v_a_loss",
+    "metrics": [
+        "ccc_score", "pearson_corr","rmse"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 50,
+            "gamma": 0.1
+        }
+    },
+    "trainer": {
+        "epochs": 100,
+        "save_dir": "saved/",
+        "save_period": 1,
+        "verbosity": 2,
+        
+        "monitor": "min val_loss",
+        "early_stop": 10,
+        "tensorboard": true
+    }
+}
